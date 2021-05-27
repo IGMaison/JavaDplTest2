@@ -9,6 +9,7 @@ public class Solution {
         Queue<Cell> cellsToCheckQueue;                  //очередь из клеток поля, с приоритетом по минимальному distance
 
         field = new Field(fieldString);
+        PeopleType peopleType_ = PeopleType.valueOf(peopleType.toUpperCase());
 
         cellsToCheckQueue = new PriorityQueue<Cell>(16,
                 Comparator.comparingInt((Cell o) -> o.distance));
@@ -25,9 +26,9 @@ public class Solution {
                 if (nearestCell.toCheck) {
 
                     if (nearestCell.distance > currCel.distance +
-                            People.getSpeed(peopleType, nearestCell.cellType) || nearestCell.distance == 0) {
+                            People.getSpeed(peopleType_, nearestCell.cellType) || nearestCell.distance == 0) {
 
-                        nearestCell.distance = currCel.distance + People.getSpeed(peopleType, nearestCell.cellType);
+                        nearestCell.distance = currCel.distance + People.getSpeed(peopleType_, nearestCell.cellType);
                         cellsToCheckQueue.add(nearestCell);
                     }
                 }
