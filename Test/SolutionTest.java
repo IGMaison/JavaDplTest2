@@ -11,6 +11,9 @@ public class SolutionTest {
     @Test
     public void getResultTest() throws NoSuchFieldException, IllegalAccessException {
 
+
+        int speed = People.getSpeed(PeopleType.HUMAN, CellType.S);
+        assertEquals(5, speed);
         assertEquals(10, Solution.getResult("STWSWTPPTPTTPWPP", "human"));
         assertEquals(6, Solution.getResult("PPPPPSSPPSSPPPPP", "HUMAN"));
         assertEquals(6, Solution.getResult("PPPPPPSPPSPPPPPP", "HumaN"));
@@ -20,13 +23,13 @@ public class SolutionTest {
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void getResultFieldErrTest() throws NoSuchFieldException, IllegalAccessException {
+    public void getResultFieldErrTest(){
 
         assertEquals(12, Solution.getResult("qwwpttswwpppsttw", "Swamper"));
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void getResultPeopleErrTest() throws NoSuchFieldException, IllegalAccessException {
+    public void getResultPeopleErrTest() {
 
         assertEquals(12, Solution.getResult("wwwpttswwpppsttw", "wamper"));
     }

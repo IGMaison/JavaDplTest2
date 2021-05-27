@@ -1,3 +1,3 @@
 public enum CellType {
-    S, W, T, P;
+    S, W, T, P
 }

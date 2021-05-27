@@ -9,9 +9,8 @@ public class Solution {
         Queue<Cell> cellsToCheckQueue;                  //очередь из клеток поля, с приоритетом по минимальному distance
 
         field = new Field(fieldString);
-        PeopleType peopleType_ = PeopleType.valueOf(peopleType.toUpperCase());
 
-        cellsToCheckQueue = new PriorityQueue<Cell>(16,
+        cellsToCheckQueue = new PriorityQueue<>(16,
                 Comparator.comparingInt((Cell o) -> o.distance));
 
         cellsToCheckQueue.add(field.fieldCells[0][0]);
@@ -21,22 +20,27 @@ public class Solution {
             Cell currCel = cellsToCheckQueue.remove();
             nearestCells = field.getNearest(currCel);
 
-            for (Cell nearestCell : nearestCells) {
+            try {
 
-                if (nearestCell.toCheck) {
+                for (Cell nearestCell : nearestCells)
+                    if (nearestCell.toCheck) if (nearestCell.distance > currCel.distance +
+                            People.getSpeed(PeopleType.fromString(peopleType), nearestCell.cellType) || nearestCell.distance == 0) {
 
-                    if (nearestCell.distance > currCel.distance +
-                            People.getSpeed(peopleType_, nearestCell.cellType) || nearestCell.distance == 0) {
+                        nearestCell.distance = currCel.distance +
+                                People.getSpeed(PeopleType.fromString(peopleType), nearestCell.cellType);
 
-                        nearestCell.distance = currCel.distance + People.getSpeed(peopleType_, nearestCell.cellType);
                         cellsToCheckQueue.add(nearestCell);
                     }
-                }
+            }
+            catch (IllegalAccessException | NoSuchFieldException e ) {
+
+                e.printStackTrace();
+
             }
             currCel.toCheck = false;
 
         }
 
-        return field.fieldCells[3][3].distance;              // minDistanse
+        return field.fieldCells[3][3].distance;
     }
 }

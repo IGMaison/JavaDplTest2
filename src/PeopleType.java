@@ -6,4 +6,15 @@ public enum PeopleType {
     PeopleType(Class peopleClass) {
         this.peopleClass = peopleClass;
     }
+
+   static PeopleType fromString (String peopleType){
+
+        try {
+            PeopleType.valueOf(peopleType.toUpperCase());
+        }
+        catch (IllegalArgumentException e){
+            throw new IllegalArgumentException("No PeopleType");
+        }
+        return PeopleType.valueOf(peopleType.toUpperCase());
+   }
 }
